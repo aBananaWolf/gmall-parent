@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:text="${index}"></div>
+
+<input type="checkbox" th:checked="(${check}==1)?true:false"/>
+
+<a th:href="'javascript:a(\''+${script}+'\');'">aaa</a>
+<hr/>
+<div th:each="l,list:${list}" th:text="${l}"></div>
+<hr/>
+<div th:each="l,list:${list}">
+    <div th:text="${l}"></div>
+</div>
+<script language="JavaScript">
+    function a(str) {
+        alert("javaScript" + str);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+dubbo:
+  application:
+    name: gmall-search-web
+  consumer:
+    timeout: 120000
+  protocol:
+    name: dubbo
+    port: 20881
+  scan:
+    base-packages: cn.com.gmall.search.controller
+  registry:
+    address: zookeeper://192.168.133.129:2181
+    check: false
+    protocol: zookeeper
+spring:
+  thymeleaf:
+    cache: false
+## 跨域配置
+#cross-origin:
+#    address: http://127.0.0.1:8888
+#
+## fastDfs
+#fdfs:
+#  img-url: http://192.168.133.129
+#  fdfs-name: tracker.conf

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.gmall.manage.mapper.SpuSaleAttrListCheckBySkuMapper">
+    <!--resultType="PmsProductSaleAttr"-->
+    <select id="selectSpuSaleAttrListCheckBySku" resultMap="selectSpuSaleAttrListCheckBySkuMap">
+        SELECT
+        psa.spu_id as attr_spu_id,
+        psa.sale_attr_id,
+        psa.sale_attr_name,
+        psav.id,
+        psav.spu_id as attr_value_spu_id,
+        psav.sale_attr_id as sale_attr_id1,
+        psav.sale_attr_value_name,
+        if(ssav.id,1,0) as is_checked
+        FROM
+        pms_product_sale_attr psa
+        INNER JOIN pms_product_sale_attr_value psav ON psa.spu_id = psav.spu_id
+        AND psa.sale_attr_id = psav.sale_attr_id
+        AND psa.spu_id = #{spuId}
+        LEFT JOIN pms_sku_sale_attr_value ssav ON ssav.sale_attr_value_id = psav.id and ssav.sku_id = #{skuId}
+        GROUP BY
+        psa.spu_id,
+        psa.sale_attr_id,
+        psa.sale_attr_name,
+        psav.id,
+        psav.spu_id,
+        psav.sale_attr_id,
+        psav.sale_attr_value_name,
+        ssav.id
+    </select>
+    <resultMap id="selectSpuSaleAttrListCheckBySkuMap" type="PmsProductSaleAttr" autoMapping="true">
+        <result column="attr_spu_id" property="spuId"></result>
+        <result column="sale_attr_id" property="saleAttrId"></result>
+        <result column="sale_attr_name" property="saleAttrName"></result>
+        <collection property="spuSaleAttrValueList" ofType="PmsProductSaleAttrValue" autoMapping="true">
+            <result column="id" property="id"></result>
+            <result column="attr_value_spu_id" property="spuId"></result>
+            <result column="sale_attr_id1" property="saleAttrId"></result>
+            <result column="sale_attr_value_name" property="saleAttrValueName"></result>
+            <result column="is_checked" property="isChecked"></result>
+        </collection>
+    </resultMap>
+</mapper>

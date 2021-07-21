@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.gmall.search.mapper.SearchByBaseAttrInfoMapper">
+    <select id="selectByBaseAttrInfo" resultMap="ByBaseAttrInfo">
+        SELECT
+        ai.*,av.*,ai.id as attrId,av.id as valueId
+        FROM
+        pms_base_attr_info ai
+        LEFT JOIN pms_base_attr_value av ON ai.id = av.attr_id
+        WHERE
+        av.id IN (
+        <foreach collection="finalValueIds" item="valueId" separator=",">
+            #{valueId}
+        </foreach>
+        )
+    </select>
+    <resultMap id="ByBaseAttrInfo" type="PmsBaseAttrInfo" autoMapping="true">
+        <result property="id" column="attrId"/>
+        <collection property="attrValueList" ofType="PmsBaseAttrValue" autoMapping="true">
+            <result property="id" column="valueId"/>
+        </collection>
+    </resultMap>
+</mapper>

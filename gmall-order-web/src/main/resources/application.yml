@@ -1,0 +1,17 @@
+dubbo:
+  application:
+    name: gmall-order-web
+  consumer:
+    timeout: 120000
+  protocol:
+    name: dubbo
+    port: 20884
+  scan:
+    base-packages: cn.com.gmall.order.controller
+  registry:
+    address: zookeeper://192.168.133.129:2181
+    check: false
+    protocol: zookeeper
+spring:
+  thymeleaf:
+    cache: false

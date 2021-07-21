@@ -1,0 +1,34 @@
+dubbo:
+  provider:
+    timeout: 120000
+  protocol:
+    name: dubbo
+    port: 20881
+  scan:
+    base-packages: cn.com.gmall
+  registry:
+    address: zookeeper://192.168.133.129:2181
+    check: false
+    protocol: zookeeper
+  application:
+    name: gmall-search-service
+
+jedis-util:
+  host: 192.168.133.129
+  port: 6379
+  password:
+  time-out: 10000
+  max-wait-millis: 10000
+  max-idle: 12
+  max-total: 5
+  test-on-return: true
+  test-on-borrow: true
+  test-while-idle: true
+  block-when-exhausted: true
+
+
+
+
+
+
+
